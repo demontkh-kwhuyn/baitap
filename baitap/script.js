@@ -4,13 +4,12 @@ const btnSave = document.getElementById('btnSave');
 const btnClearAll = document.getElementById('btnClearAll');
 const movieListContainer = document.getElementById('movieList');
 
-//Khởi tạo mảng phim từ localStorage (nếu có)
 let movieWishlist = JSON.parse(localStorage.getItem("movieWishlist")) || [];
 
 //render
-function renderMovies() {
-    movieListContainer.innerHTML = ""; 
-
+const renderMovies = () => {
+    movieListContainer.innerHTML = "";
+    
     movieWishlist.forEach((movie) => {
         const card = document.createElement('div');
         card.className = 'movie-card';
@@ -22,20 +21,23 @@ function renderMovies() {
         `;
         movieListContainer.appendChild(card);
     });
-     const titleList = document.querySelector('h2'); 
-    if(titleList) titleList.innerText = `Danh sách của bạn (${movieWishlist.length})`;
-}
 
-function deleteMovie(id) {
+    const titleList = document.querySelector('h2');
+    if (titleList) titleList.innerText = `Danh sách của bạn (${movieWishlist.length})`;
+};
+
+//xóa phim bằng id
+const deleteMovie = (id) => {
     if (confirm("Bạn muốn xóa phim này khỏi danh sách?")) {
         movieWishlist = movieWishlist.filter(movie => movie.id !== id);
         localStorage.setItem("movieWishlist", JSON.stringify(movieWishlist));
         renderMovies();
     }
-}
+};
+window.deleteMovie = deleteMovie;
 
-//lưu phim new
-btnSave.onclick = function() {
+//lưu 
+btnSave.addEventListener('click', () => {
     const title = titleInput.value.trim();
     const description = descInput.value.trim();
 
@@ -45,7 +47,7 @@ btnSave.onclick = function() {
         return;
     }
 
-    // Tạo object phim
+    //tạo object phim
     const newMovie = {
         id: Date.now(),
         title: title,
@@ -53,23 +55,24 @@ btnSave.onclick = function() {
         date: new Date().toLocaleString('vi-VN')
     };
 
-    // Thêm vào mảng và lưu vào localStorage
+    //thêm vào mảng và lưu vào localStorage
     movieWishlist.push(newMovie);
     localStorage.setItem("movieWishlist", JSON.stringify(movieWishlist));
 
     // rì sét lại form
     titleInput.value = "";
     descInput.value = "";
+    
     renderMovies();
     alert("Đã thêm vào danh sách thành công!");
-};
+});
 
-//xóa all
-btnClearAll.onclick = function() {
+//Xóa
+btnClearAll.addEventListener('click', () => {
     if (confirm("Bạn có chắc chắn muốn xóa toàn bộ danh sách?")) {
         movieWishlist = [];
         localStorage.removeItem("movieWishlist");
         renderMovies();
     }
-};
+});
 renderMovies();
