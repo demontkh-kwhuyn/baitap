@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Wishlist - Thực Chiến</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Movie Wishlist</h1>
+        
+        <!-- Phần nhập liệu -->
+        <div class="input-section">
+            <input type="text" id="movieTitle" placeholder="Tiêu đề phim...">
+            <textarea id="movieDesc" placeholder="Lý do / Mô tả muốn xem..."></textarea>
+            <div class="button-group">
+                <button id="btnSave" class="btn-primary">Lưu Phim</button>
+                <button id="btnClearAll" class="btn-danger">Xóa Tất Cả</button>
+            </div>
+        </div>
+
+        <!-- Phần hiển thị danh sách -->
+        <div id="movieList" class="movie-grid">
+            <!-- Thẻ phim sẽ được render vào đây -->
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
